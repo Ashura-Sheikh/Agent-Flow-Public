@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Agent Flow — 1 Human, 6 AI Agents, Real Governance</title>
+  <meta name="description" content="An interactive, public look at how one business runs work through 1 human and 6 specialized AI agents — with typed routing rules, escalation gates, and channels the system will not use even when asked. Paste in your own agent setup and test it too.">
+
+  <!-- Social preview (Open Graph + Twitter Card). No og:image yet — add one,
+       and switch twitter:card to "summary_large_image", once a real graphic
+       exists. No og:url set on purpose — add it once the real domain is live,
+       so a placeholder URL doesn't get cached by a crawler. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Agent Flow — 1 Human, 6 AI Agents, Real Governance">
+  <meta property="og:description" content="An interactive, public look at how one business runs work through 1 human and 6 specialized AI agents — with typed routing rules, escalation gates, and channels the system will not use even when asked. Paste in your own agent setup and test it too.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Agent Flow — 1 Human, 6 AI Agents, Real Governance">
+  <meta name="twitter:description" content="An interactive, public look at how one business runs work through 1 human and 6 specialized AI agents — with typed routing rules, escalation gates, and channels the system will not use even when asked. Paste in your own agent setup and test it too.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button id="agfl-guide-btn" class="agfl-guide-btn" title="Open the user guide">📖 Guide</button>
+
+  <div id="agfl-guide-backdrop" class="agfl-modal-backdrop" style="display:none">
+    <div class="agfl-modal" role="dialog" aria-label="User guide" aria-modal="true">
+      <div class="agfl-modal-head">
+        <h3>User guide</h3>
+        <button id="agfl-guide-close" class="agfl-btn agfl-modal-x" aria-label="Close">✕</button>
+      </div>
+      <div class="agfl-modal-body">
+        <div class="agfl-guide-grid">
+
+          <div class="agfl-guide-card" style="border-left-color:var(--agfl-c-gate)">
+            <h4>🗺 Workflow Map</h4>
+            <ul>
+              <li>Click any <b>node</b> for its role and real routing rules. Click any <b>line</b> for what that connection type means.</li>
+              <li>Click the <b>legend</b> to show/hide a connection type.</li>
+              <li><b>Pan</b>: drag empty space. <b>Zoom</b>: scroll/pinch or the +/−/⟲ buttons. <b>Drag a node</b> to rearrange it.</li>
+              <li>Type into <b>search</b> to jump straight to an agent. <b>🔗 copy link</b> shares your exact view.</li>
+            </ul>
+            <div class="agfl-guide-try"><b>Try this:</b> click the "Technical Lead" node, then pick <i>Routing-bypass drill</i> under Simulate and press Play — watch a PROHIBITED channel get declined in real time.</div>
+          </div>
+
+          <div class="agfl-guide-card" style="border-left-color:var(--agfl-c-review)">
+            <h4>🧪 Test a Scenario (real agents)</h4>
+            <ul>
+              <li>Pick who's asking and who they're trying to reach, optionally jot a case note (kept as a label only, never analyzed), then Run test.</li>
+              <li>✅ = a documented rule governs this pair. 🔴 = an undocumented indirect path connects them anyway — the result names the exact hop responsible and suggests a fix.</li>
+              <li>Counters and the session log are live, in-memory only — gone on reload.</li>
+            </ul>
+            <div class="agfl-guide-try"><b>Try this:</b> From <i>Ashura</i> → To <i>Lean Six Sigma Coach</i> → Run test. There's no direct rule between them, but they're reachable through Sheikh — a real gap this tool actually caught.</div>
+          </div>
+
+          <div class="agfl-guide-card" style="border-left-color:var(--agfl-accent)">
+            <h4>📋 Improvement Draft</h4>
+            <ul>
+              <li>Each agent's evidence-grounded improvement practice, generalized for public sharing.</li>
+              <li>The underlying discipline is real — the incident-level detail behind it is deliberately not shown here.</li>
+            </ul>
+            <div class="agfl-guide-try"><b>Try this:</b> open the tab and read any agent's card — notice there are no names, dates, or quotes tied to a specific incident, on purpose.</div>
+          </div>
+
+          <div class="agfl-guide-card" style="border-left-color:var(--agfl-c-direct)">
+            <h4>🧩 Bring Your Own Agents</h4>
+            <ul>
+              <li>Paste a JSON description of your own agent setup (see the on-page "Schema" help), or click <b>Load example</b> to start from a working one.</li>
+              <li>Press <b>Render</b> to see it drawn live — same engine as the map above, up to 20 agents.</li>
+              <li>If you defined <code>flows</code>, use Simulate the same way as the main map. Use <b>Test a path</b> the same way as "Test a Scenario."</li>
+              <li><b>Copy as Mermaid</b> turns your graph into Mermaid syntax for GitHub, Obsidian, Notion, or anywhere else that renders it.</li>
+            </ul>
+            <div class="agfl-guide-try"><b>Try this:</b> click <i>Load example</i>, press <i>Render</i>, then Test a path from "You" → "Reviewer." No direct rule connects them, but they're reachable through the Intake Agent — a real slip-through in the sample graph itself.</div>
+          </div>
+
+          <div class="agfl-guide-card" style="border-left-color:var(--agfl-mut)">
+            <h4>🔒 Privacy, in one line</h4>
+            <p>Nothing on this page is ever sent anywhere or saved anywhere — no network calls, no cookies, no storage of any kind. Everything lives in memory for as long as the tab's open, and disappears on refresh.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="agfl-page">
+
+    <section class="agfl-hero">
+      <div class="agfl-hero-row">
+        <div>
+          <h1 class="agfl-hero-title">AI Agent Flow</h1>
+          <p class="agfl-hero-tag">How one person runs real work through six specialized AI agents — with typed routing rules, escalation gates, and channels the system will not use even under a request that looks legitimate.</p>
+          <p class="agfl-hero-meta">1 human · 6 AI agents · 17 governance edges · click through it below, it's live.</p>
+        </div>
+        <button id="agfl-theme-toggle" class="agfl-btn agfl-theme-btn" title="Cycle theme (auto / dark / light — nothing saved)">🌓 Auto</button>
+      </div>
+    </section>
+
+    <section class="agfl-block">
+      <h2>Why this is different from "we use AI"</h2>
+      <p>Every action here traces to an explicit authority — nothing executes on an inferred or relayed approval. Work moves through defined gates before it reaches a decision-maker, delegation is explicit rather than assumed, and there are channels the system is built to <em>never</em> use, even under a live, direct-looking request. The result: fewer surprises, a real audit trail, and predictable delivery for anyone working with this business.</p>
+    </section>
+
+    <section class="agfl-block agfl-callout">
+      <h2>Not tied to one AI vendor</h2>
+      <p>This governance model isn't locked to a single AI provider — it's the routing and accountability structure that matters, not which AI happens to be running underneath it. This exact visualization started life as a mirror of a different AI harness's own plugin before becoming this fully standalone build, proof the model itself travels. Any capable AI agent can be plugged into this same structure.</p>
+    </section>
+
+    <div class="agfl-app">
+      <header class="agfl-top">
+        <div>
+          <div class="agfl-sub">6 agents + 1 human hub · breathing = activity · click to explore · simulate the flows</div>
+        </div>
+        <nav class="agfl-tabs">
+          <button class="agfl-tab agfl-tab-on" data-tabbtn="map">Workflow Map</button>
+          <button class="agfl-tab" data-tabbtn="improve">Improvement Draft</button>
+          <button class="agfl-tab" data-tabbtn="byoa">Bring Your Own Agents</button>
+        </nav>
+      </header>
+
+      <main>
+        <!-- Workflow Map -->
+        <section id="view-map">
+          <div class="agfl-map-wrap">
+            <div class="agfl-toolrow">
+              <div id="agfl-legend" class="agfl-legend"></div>
+              <div class="agfl-tools">
+                <input id="agfl-search" class="agfl-search" list="agfl-node-list" placeholder="Jump to agent…">
+                <datalist id="agfl-node-list"></datalist>
+                <button id="agfl-zoom-out" class="agfl-btn agfl-zbtn" title="Zoom out">−</button>
+                <button id="agfl-zoom-reset" class="agfl-btn agfl-zbtn" title="Reset view">⟲</button>
+                <button id="agfl-zoom-in" class="agfl-btn agfl-zbtn" title="Zoom in">+</button>
+              </div>
+            </div>
+            <svg id="agfl-svg" class="agfl-svg" viewBox="0 0 1000 600" role="img" aria-label="Agent workflow map"></svg>
+            <div id="agfl-detail" class="agfl-card"></div>
+            <div class="agfl-sim">
+              <div class="agfl-sim-row">
+                <select id="agfl-sim-select" class="agfl-sel">
+                  <option value="">Simulate a flow…</option>
+                </select>
+                <button id="agfl-sim-play" class="agfl-btn agfl-btn-primary" disabled>Play</button>
+                <button id="agfl-sim-reset" class="agfl-btn">Reset</button>
+                <span id="agfl-sim-step" class="agfl-kbd">no flow</span>
+              </div>
+              <div id="agfl-narrate" class="agfl-narrate">Pick a flow, press Play.</div>
+            </div>
+
+            <div class="agfl-testbox">
+              <h4>Test a scenario on the real agents</h4>
+              <p class="agfl-imp-intro">Pick who's asking and who they're trying to reach. This checks it against the actual rules on this page — a documented rule (including a PROHIBITED one) means the request gets pulled back correctly; an undocumented indirect path means it could slip through and get actioned instead. The case notes field is kept as a plain label on the result for your own reading — it is not analyzed. Nothing here is saved; the counters and the list below are a live, in-session tally only, cleared on reload.</p>
+              <div class="agfl-sim-row">
+                <select id="agfl-test-from" class="agfl-sel"></select>
+                <span>→</span>
+                <select id="agfl-test-to" class="agfl-sel"></select>
+                <button id="agfl-test-run" class="agfl-btn agfl-btn-primary">Run test</button>
+                <button id="agfl-test-reset" class="agfl-btn">Reset</button>
+              </div>
+              <input id="agfl-test-note" class="agfl-search" style="width:100%" placeholder="Case notes (optional, not analyzed) — e.g. &quot;client asks Ashura for a scope change directly&quot;">
+              <div id="agfl-test-result" class="agfl-narrate"></div>
+              <div id="agfl-test-counters" class="agfl-counters">✅ 0 pulled back / documented · 🔴 0 would slip through and get actioned</div>
+              <div id="agfl-test-log"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Improvement Draft -->
+        <section id="view-improve" style="display:none">
+          <div id="agfl-improve"></div>
+        </section>
+
+        <!-- Bring Your Own Agents -->
+        <section id="view-byoa" style="display:none">
+          <div class="agfl-byoa">
+            <p class="agfl-imp-intro">Paste a simple description of your own agent setup below and see it rendered live — nothing you enter here is saved, sent anywhere, or logged. Refresh clears it. Caps at 20 agents at a time.</p>
+
+            <details class="agfl-help">
+              <summary>Schema — what to paste in</summary>
+              <p>A JSON object with <code>agents</code> (id + label + optional role), <code>edges</code> (from/to/type/optional label), and optional <code>flows</code> (a label + an ordered list of edge ids, written as <code>"from-to"</code>, to animate). Valid edge <code>type</code> values: <code>auth, gate, delegate, relay, direct, review, route, handoff, redirect, blocked</code> — these reuse the same colors/legend as the map above. Click "Load example" to see a working one.</p>
+            </details>
+
+            <textarea id="byoa-input" class="agfl-textarea" spellcheck="false" rows="12"></textarea>
+            <div id="byoa-error" class="agfl-error" style="display:none"></div>
+            <div class="agfl-sim-row">
+              <button id="byoa-render" class="agfl-btn agfl-btn-primary">Render</button>
+              <button id="byoa-example" class="agfl-btn">Load example</button>
+            </div>
+
+            <div id="byoa-canvas" style="display:none">
+              <div class="agfl-toolrow">
+                <div class="agfl-tools">
+                  <button id="byoa-zoom-out" class="agfl-btn agfl-zbtn" title="Zoom out">−</button>
+                  <button id="byoa-zoom-reset" class="agfl-btn agfl-zbtn" title="Reset view">⟲</button>
+                  <button id="byoa-zoom-in" class="agfl-btn agfl-zbtn" title="Zoom in">+</button>
+                </div>
+              </div>
+              <svg id="byoa-svg" class="agfl-svg" viewBox="0 0 1000 600" role="img" aria-label="Your agent workflow map"></svg>
+              <div id="byoa-detail" class="agfl-card"></div>
+
+              <div id="byoa-sim-wrap" class="agfl-sim">
+                <div class="agfl-sim-row">
+                  <select id="byoa-sim-select" class="agfl-sel"><option value="">Simulate a flow…</option></select>
+                  <button id="byoa-sim-play" class="agfl-btn agfl-btn-primary" disabled>Play</button>
+                  <button id="byoa-sim-reset" class="agfl-btn">Reset</button>
+                  <span id="byoa-sim-step" class="agfl-kbd">no flow</span>
+                </div>
+                <div id="byoa-narrate" class="agfl-narrate">Pick a flow, press Play.</div>
+              </div>
+
+              <div class="agfl-testbox">
+                <h4>Test a path — does a use case slip through?</h4>
+                <p class="agfl-imp-intro">Pick two agents. This checks whether they have a documented rule between them, or whether an undocumented indirect path connects them anyway — a possible governance gap. Nothing here is saved; the counters are a live in-memory tally only, reset by reloading the page.</p>
+                <div class="agfl-sim-row">
+                  <select id="byoa-test-from" class="agfl-sel"></select>
+                  <span>→</span>
+                  <select id="byoa-test-to" class="agfl-sel"></select>
+                  <button id="byoa-test-run" class="agfl-btn agfl-btn-primary">Run test</button>
+                  <button id="byoa-test-reset" class="agfl-btn">Reset counters</button>
+                </div>
+                <div id="byoa-test-result" class="agfl-narrate"></div>
+                <div id="byoa-counters" class="agfl-counters">✅ 0 contained · 🔴 0 slipped through</div>
+              </div>
+
+              <div class="agfl-sim-row">
+                <button id="byoa-mermaid" class="agfl-btn">Show as Mermaid</button>
+                <button id="byoa-mermaid-copy" class="agfl-btn agfl-btn-primary">Copy as Mermaid</button>
+              </div>
+              <pre id="byoa-mermaid-out" class="agfl-mermaid-out" style="display:none"></pre>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="agfl-foot">
+        <div id="agfl-foot-note"></div>
+      </footer>
+    </div>
+
+    <section class="agfl-block">
+      <h2>Under the hood</h2>
+      <p>Behind the scenes, this operation runs its own automation: scripts that flag stale risk items before they're forgotten, snapshot task load, auto-log handoffs between agents, and track AI cost per completed task — so the system checks its own health instead of relying on someone remembering to look.</p>
+    </section>
+
+    <section class="agfl-block agfl-builtwith">
+      <h2>Built with</h2>
+      <p>Built inside Obsidian. Two layers worth crediting: the AI-facing <strong>Skills</strong> used for Obsidian-format content itself (<code>obsidian-markdown</code>, <code>obsidian-bases</code>, <code>obsidian-cli</code>, <code>json-canvas</code>), and the underlying <strong>plugin stack</strong> that makes the vault actually run day to day (TaskNotes, QuickAdd, Meta Bind, Templater, Dataview, Excalidraw, Calendar, and more). One made this buildable with an AI agent; the other makes it usable every day.</p>
+    </section>
+
+    <footer class="agfl-page-foot">
+      <p>A public, standalone view of a real internal governance model. Improvement detail has been generalized for public sharing — no internal incident logs or dated corrections shown, by deliberate choice, not omission.</p>
+      <p class="agfl-credit">
+        Built by Sheikh Sahil (Sheiko) —
+        <a href="https://github.com/Ashura-Sheikh" id="agfl-credit-github" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/sheikh-sahil-b97568b3/" id="agfl-credit-linkedin" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="byoa.js"></script>
+</body>
+</html>
