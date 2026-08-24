@@ -55,7 +55,6 @@ The two test tools' case-notes fields are kept only as plain labels shown next t
 
 ## Open items — not yet resolved
 
-- **Credit line**: "Built by Sheikh Sahil (Sheiko)" in the footer, with real GitHub and LinkedIn links.
 - **Social preview image**: `og:title`/`og:description`/Twitter Card tags are in `index.html`, but there's no `og:image` yet — add one and switch `twitter:card` to `summary_large_image` once a real graphic exists. `og:url` is deliberately not set until the real domain is live.
 - **Real-agent scenario test — two pending trade-off decisions**, deliberately not decided unilaterally:
   1. Whether the case-notes text should ever be semantically analyzed (would require a network call to an AI model, breaking the no-network design above), vs. staying a label only (current behavior).
